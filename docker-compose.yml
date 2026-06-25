@@ -1,0 +1,15 @@
+services:
+  blocklist-api:
+    build: .
+
+    container_name: blocklist-api
+
+    env_file: secrets.env
+
+    volumes:
+      - ./data:/data
+
+    ports:
+      - "127.0.0.1:8000:8000"
+
+    restart: unless-stopped
