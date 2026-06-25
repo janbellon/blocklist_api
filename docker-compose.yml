@@ -1,7 +1,6 @@
 services:
   blocklist-api:
-    build: .
-
+    image: ghcr.io/janbellon/blocklist_api:latest
     container_name: blocklist-api
 
     env_file: secrets.env
