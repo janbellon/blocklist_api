@@ -7,7 +7,7 @@ source /opt/blocklist/blocklist_sync.env
 STATE_DIR="/var/lib/blocklist-sync"
 LAST_SYNC_FILE="$STATE_DIR/last_sync"
 
-IPSET_NAME="global_blacklist"
+IPSET_NAME="global_blocklist"
 
 mkdir -p "$STATE_DIR"
 
