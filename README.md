@@ -30,6 +30,10 @@ Change the `blocklist_sync.env` environment file
 API_URL=http://your-api-endpoint:8000
 TOKEN=readonlytoken
 ```
+Initiate the iptables rules
+```bash
+./iptables.sh
+```
 Create the cronjob
 ```bash
 crontab sync.cron
