@@ -9,10 +9,13 @@ Hosts can then run the `sync_blocklist.sh` script to synchronize a local ipset w
 ## Setup
 ### Deploy the blocklist api
 ```bash
-git clone https://github.com/janbellon/blocklist_api
+export VERSION=v0.1.0
+wget https://github.com/janbellon/blocklist_api/releases/download/${VERSION}/docker-compose.yml
+wget https://github.com/janbellon/blocklist_api/releases/download/${VERSION}/create_secrets.sh
 ```
 Generate the bearer tokens for api access
 ```bash
+chmod +x create_secrets.sh
 ./create_secrets.sh
 ```
 Launch
@@ -41,6 +44,12 @@ crontab sync.cron
 
 ### Cli tools
 Some bash cli tools have been created to manage the blocked ips manually.
+
+Download the client
+```bash
+export VERSION=v0.1.0
+wget https://github.com/janbellon/blocklist_api/releases/download/${VERSION}/cli.sh
+```
 
 Create the env variables for api connection
 ```bash
