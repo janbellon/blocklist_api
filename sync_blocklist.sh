@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 source /opt/blocklist/blocklist_sync.env
 
 STATE_DIR="/var/lib/blocklist-sync"
