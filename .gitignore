@@ -3,3 +3,4 @@ secrets.env
 data/
 __pycache__/
 docker-compose.yml.dev
+.envrc
