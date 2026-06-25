@@ -34,3 +34,27 @@ Create the cronjob
 ```bash
 crontab sync.cron
 ```
+
+### Cli tools
+Some bash cli tools have been created to manage the blocked ips manually.
+
+Create the env variables for api connection
+```bash
+export API_URL=http://...
+export TOKEN=abcd123
+```
+
+Ban an IP
+```bash
+./cli.sh ban 1.2.3.4
+```
+
+Unban an IP
+```bash
+./cli.sh unban 1.2.3.4
+```
+
+List banned ips
+```bash
+./cli.sh list
+```
