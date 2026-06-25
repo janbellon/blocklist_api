@@ -25,10 +25,10 @@ docker compose up -d
 git clone https://github.com/janbellon/blocklist_api /opt/blocklist
 cd /opt/blocklist
 ```
-Create the sync environment file
+Change the `blocklist_sync.env` environment file
 ```bash
 API_URL=http://your-api-endpoint:8000
-TOKEN=... # Readonly token generated on blocklist api secrets creation
+TOKEN=readonlytoken
 ```
 Create the cronjob
 ```bash
