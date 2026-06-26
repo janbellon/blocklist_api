@@ -57,17 +57,20 @@ export API_URL=http://...
 export TOKEN=abcd123
 ```
 
-Ban an IP
+Ban an IP or Network
 ```bash
 ./cli.sh ban 1.2.3.4
+./cli.sh bannet 1.2.3.0/24
 ```
 
-Unban an IP
+Unban an IP or Network
 ```bash
 ./cli.sh unban 1.2.3.4
+./cli.sh unban 1.2.3.0/24
 ```
 
-List banned ips
+List banned IPs or Networks
 ```bash
 ./cli.sh list
+./cli.sh listnets
 ```
