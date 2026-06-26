@@ -11,20 +11,20 @@ usage() {
     echo "Usage:"
     echo "  $0 ban <ip>"
     echo "  $0 unban <ip>"
+    echo "  $0 bannet <network>"
+    echo "  $0 unbannet <network>"
     echo "  $0 list"
+    echo "  $0 listnets"
     exit 1
 }
 
-if [ -z "$ACTION" ]; then
-    usage
-fi
+[ -n "$ACTION" ] || usage
 
 case "$ACTION" in
 
     ban|unban)
-        if [ $# -ne 2 ]; then
-            usage
-        fi
+
+        [ $# -eq 2 ] || usage
 
         IP="$2"
 
@@ -39,28 +39,60 @@ case "$ACTION" in
             ENDPOINT="/unbanip"
         fi
 
-        RESPONSE=$(curl -s -X POST "$API_URL$ENDPOINT" \
+        curl -s -X POST "$API_URL$ENDPOINT" \
             -H "Authorization: Bearer $TOKEN" \
             -H "Content-Type: application/json" \
-            -d "{\"address\":\"$IP\",\"reason\":\"manual\"}")
+            -d "{\"address\":\"$IP\",\"reason\":\"manual\"}"
 
-        echo "$RESPONSE"
+        echo
+        ;;
+
+    bannet|unbannet)
+
+        [ $# -eq 2 ] || usage
+
+        NETWORK="$2"
+
+        if ! python3 -c "import ipaddress; ipaddress.ip_network('$NETWORK', strict=True)" 2>/dev/null; then
+            echo "Invalid network"
+            exit 1
+        fi
+
+        if [ "$ACTION" = "bannet" ]; then
+            ENDPOINT="/bannet"
+        else
+            ENDPOINT="/unbannet"
+        fi
+
+        curl -s -X POST "$API_URL$ENDPOINT" \
+            -H "Authorization: Bearer $TOKEN" \
+            -H "Content-Type: application/json" \
+            -d "{\"network\":\"$NETWORK\",\"reason\":\"manual\"}"
+
+        echo
         ;;
 
     list)
-        if [ $# -ne 1 ]; then
-            usage
-        fi
 
-        RESPONSE=$(curl -s "$API_URL/list" \
-            -H "Authorization: Bearer $TOKEN")
+        [ $# -eq 1 ] || usage
 
-        echo "$RESPONSE" | jq -r '
-            .[] | "\(.address) | v\(.version) | \(.reason) | \(.timestamp)"
-        '
+        curl -s "$API_URL/list" \
+            -H "Authorization: Bearer $TOKEN" |
+        jq -r '.[] | "\(.address) | IPv\(.version) | \(.reason) | \(.timestamp)"'
+        ;;
+
+    listnets)
+
+        [ $# -eq 1 ] || usage
+
+        curl -s "$API_URL/listnets" \
+            -H "Authorization: Bearer $TOKEN" |
+        jq -r '.[] | "\(.network) | IPv\(.version) | \(.reason) | \(.timestamp)"'
         ;;
 
     *)
+
         usage
         ;;
+
 esac
