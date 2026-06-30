@@ -1,5 +1,5 @@
 # Blocklist API
-A little IP blocklist database written in Python. \
+A little IP blocklist database written in Python.
 
 ## Use case
 When you have a lot of servers exposed to the internet, it is necessary to have a good vision on the scans and attacks performed on the server and to be able to ban malicious ip addresses. \
